@@ -13,6 +13,7 @@
     "axios": "^1.6.8",
     "less": "^4.2.0",
     "less-loader": "^12.2.0",
+    "v-scale-screen": "^2.2.0",
     "vue": "^3.4.21",
     "vue-router": "^4.3.0"
   },

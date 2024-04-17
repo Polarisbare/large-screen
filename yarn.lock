@@ -1294,6 +1294,13 @@ util-deprecate@^1.0.2:
   resolved "https://registry.npmmirror.com/util-deprecate/-/util-deprecate-1.0.2.tgz#450d4dc9fa70de732762fbd2d4a28981419a0ccf"
   integrity sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==
 
+v-scale-screen@^2.2.0:
+  version "2.2.0"
+  resolved "https://registry.npmmirror.com/v-scale-screen/-/v-scale-screen-2.2.0.tgz#6a4dc7a9f49c4b3d8ecd9535c80b4ab407d4e427"
+  integrity sha512-GHzwRYQwj5MTiYWxtdxI5S6DgEzFjSSMxg53TLddRgXjNSe/dG++Q+6AgrYS3HKDcWzccs19agF6UFcckxn1yA==
+  dependencies:
+    vue "^3.2.37"
+
 vite@^5.2.0:
   version "5.2.9"
   resolved "https://registry.npmmirror.com/vite/-/vite-5.2.9.tgz#cd9a356c6ff5f7456c09c5ce74068ffa8df743d9"
@@ -1325,7 +1332,7 @@ vue-router@^4.3.0:
   dependencies:
     "@vue/devtools-api" "^6.5.1"
 
-vue@^3.4.21:
+vue@^3.2.37, vue@^3.4.21:
   version "3.4.23"
   resolved "https://registry.npmmirror.com/vue/-/vue-3.4.23.tgz#9d5a990a71c5bd5446f80377828e6587cfc488d5"
   integrity sha512-X1y6yyGJ28LMUBJ0k/qIeKHstGd+BlWQEOT40x3auJFTmpIhpbKLgN7EFsqalnJXq1Km5ybDEsp6BhuWKciUDg==
