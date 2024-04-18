@@ -2,7 +2,7 @@
  * @Author: Lv Jingxin lv510987@163.com
  * @Date: 2024-04-17 15:25:53
  * @LastEditors: Lv Jingxin lv510987@163.com
- * @LastEditTime: 2024-04-17 17:03:43
+ * @LastEditTime: 2024-04-18 09:21:57
  * @FilePath: /large-screen/src/views/home.vue
  * @Description: 
 -->
@@ -10,12 +10,32 @@
   <v-scale-screen class="screenBac" width="1920" height="1080">
     <div class="home">
       <!-- 头部 -->
-      <div class="top">
+      <div class="one-box">
         <div class="back">返回</div>
         <div class="back">4月16日 &nbsp; 11:24</div>
       </div>
-      <div></div>
-      <div></div>
+      <!-- main -->
+      <div class="main">
+        <!-- 第二部分 -->
+        <div class="two-box">
+          <div class="left-two">
+            <!-- 左侧头部 -->
+            <div class="two-head">
+              <div class="two-head-left">
+                <div class="son">
+                  <img src="@/assets/star.svg" alt="" />
+                  <span class="title">贷款市场报价利率(LPR)</span>
+                </div>
+              </div>
+              <div class="two-head-right"></div>
+            </div>
+            <!-- 左侧图表 -->
+            <div class="two-main">11</div>
+          </div>
+          <div class="right-two"></div>
+        </div>
+        <div></div>
+      </div>
     </div>
   </v-scale-screen>
 </template>
@@ -36,7 +56,7 @@ import VScaleScreen from 'v-scale-screen';
   height: 100vh;
   width: 100%;
   // padding-top: 30px;
-  .top {
+  .one-box {
     height: 112px;
     background: url('@/assets/top.svg');
     // 剧中
@@ -53,6 +73,54 @@ import VScaleScreen from 'v-scale-screen';
       -webkit-text-fill-color: transparent;
       font-size: 25px;
       margin-top: 35px;
+    }
+  }
+  .main {
+    padding: 40px;
+    .two-box {
+      .left-two {
+        width: 1216px;
+        .two-head {
+          width: 100%;
+          display: flex;
+          .two-head-left {
+            width: 363px;
+            height: 32px;
+            background: url('@/assets/left.svg');
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            padding-left: 16px;
+            .son {
+              bottom: 10px;
+              position: relative;
+              .title {
+                color: rgba(255, 255, 255, 1);
+                font-family: AlibabaPuHuiTi2.0-95ExtraBold;
+                font-size: 24px;
+                margin-left: 16px;
+              }
+            }
+          }
+          .two-head-right {
+            position: relative;
+            bottom: -8px;
+            left: -6px;
+            width: calc(100% - 363px);
+            background: url('@/assets/right.svg');
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+            height: 20px;
+          }
+        }
+        .two-main {
+          width: 100%;
+          height: 336px;
+          margin-top: 4px;
+          background: url('@/assets/main.svg') no-repeat;
+          background-size: cover;
+        }
+      }
     }
   }
 }
