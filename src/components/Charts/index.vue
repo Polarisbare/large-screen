@@ -2,12 +2,12 @@
  * @Author: Lv Jingxin lv510987@163.com
  * @Date: 2024-02-01 14:39:05
  * @LastEditors: Lv Jingxin lv510987@163.com
- * @LastEditTime: 2024-03-26 09:54:25
+ * @LastEditTime: 2024-04-18 14:45:44
  * @FilePath: /main-project-front/src/components/Charts/index.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
 <template>
-  <div class="comp-charts" ref="chartRef"></div>
+  <div class="comp-charts" ref="chartRef" style="height: 100%; width: 100%"></div>
 </template>
 
 <script setup name="MyEcharts">
@@ -22,8 +22,8 @@ const props = defineProps({
     default() {
       return {};
     },
-    require: true
-  }
+    require: true,
+  },
 });
 
 const initChart = () => {
@@ -51,12 +51,12 @@ onUnmounted(() => {
 });
 watch(
   () => props.options,
-  newVal => {
+  (newVal) => {
     if (instance.value) {
       instance.value.setOption(newVal, true);
     }
   },
-  { deep: true }
+  { deep: true },
 );
 </script>
 

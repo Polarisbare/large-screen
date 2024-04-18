@@ -2,7 +2,7 @@
  * @Author: Lv Jingxin lv510987@163.com
  * @Date: 2024-04-17 15:25:53
  * @LastEditors: Lv Jingxin lv510987@163.com
- * @LastEditTime: 2024-04-18 11:41:17
+ * @LastEditTime: 2024-04-18 17:15:45
  * @FilePath: /large-screen/src/views/home.vue
  * @Description: 
 -->
@@ -19,26 +19,54 @@
         <!-- 第二部分 -->
         <div class="two-box">
           <div style="width: 1216px">
-            <ChartItem title="贷款市场报价利率(LPR)" :type="0"></ChartItem>
+            <ChartItem title="贷款市场报价利率(LPR)" :type="0">
+              <template #box>
+                <div class="mian-box">
+                  <CusEchart :options="loanOption" class="two-chart" />
+                </div>
+              </template>
+            </ChartItem>
           </div>
           <div style="width: calc(100% - 1216px); margin-left: 30px">
-            <ChartItem title="中国国债收益率曲线" :type="1" />
+            <ChartItem title="中国国债收益率曲线" :type="1">
+              <template #box>
+                <div class="mian-box">
+                  <CusEchart :options="loanOption" class="two-chart" />
+                </div>
+              </template>
+            </ChartItem>
           </div>
         </div>
         <!-- 第三部分 -->
         <div class="three-box">
           <div class="three-left">
-            <ChartItem title="人民币汇率" :type="2" />
+            <ChartItem title="人民币汇率" :type="2">
+              <template #box>
+                <div class="mian-box">
+                  <div class="titleToday">
+                    今日汇率：1 美元 ≈ 7.2387 人民币；1 欧元 ≈ 7.6969 人民币；1 澳元 ≈ 4.6454 人民币；1 港币 ≈ 0.9243
+                    人民币
+                  </div>
+                  <CusEchart :options="rmbOption" class="three-chart" />
+                </div>
+              </template>
+            </ChartItem>
           </div>
           <div class="three-right">
-            <ChartItem title="行业分析报告" :type="2" more />
+            <ChartItem title="行业分析报告" :type="2" more>
+              <template #box>
+                <div class="three-right-box"></div>
+              </template>
+            </ChartItem>
           </div>
         </div>
         <!-- 第四部分 -->
         <div class="four-box">
           <ChartItem title="上市公司股价" :type="3">
             <template #box>
-              <div class="mian-box">1</div>
+              <div class="mian-box">
+                <a href="http://192.168.252.232:8015/pdffile/11111.pdf">hahahahahahaha</a>
+              </div>
             </template>
           </ChartItem>
         </div>
@@ -50,14 +78,273 @@
 // components
 import VScaleScreen from 'v-scale-screen';
 import ChartItem from '@/components/ChartItem.vue';
+import CusEchart from '@/components/Charts/index.vue';
 // api
 import { getRmbInfo } from '@/api/home-page';
-
+import { ref } from 'vue';
 const getRmbInfoFn = async () => {
   const res = await getRmbInfo();
   console.log('============>res', res);
 };
 getRmbInfoFn();
+// 贷款图表
+const loanOption = ref({
+  tooltip: {
+    trigger: 'item',
+  },
+  legend: {
+    top: '',
+    right: '0%',
+    itemHeight: 5,
+    textStyle: {
+      color: '#ccccea',
+    },
+    data: [
+      {
+        name: '贷款1年',
+        icon: 'rect',
+        itemStyle: {
+          color: '#FAF347',
+        },
+      },
+
+      {
+        name: '贷款5年',
+        icon: 'rect',
+        itemStyle: {
+          color: '#30B4FF',
+        },
+      },
+    ],
+  },
+  grid: {
+    left: '0',
+    right: '15',
+    bottom: '0',
+    containLabel: true,
+  },
+
+  xAxis: {
+    name: '日期',
+    type: 'category',
+    boundaryGap: false,
+    data: ['1月 ', '2月', '3月'],
+  },
+  yAxis: {
+    name: '利率',
+    type: 'value',
+    nameTextStyle: {
+      color: '#ccccea',
+    },
+    splitLine: {
+      lineStyle: {
+        type: 'dashed', //设置网格线类型 dotted：虚线   solid:实线
+      },
+      show: true,
+    },
+  },
+  series: [
+    {
+      name: '贷款1年',
+      type: 'line',
+      color: '#FAF347',
+      // seriesLayoutBy: 'row',
+      // emphasis: { focus: 'series' },
+      lineStyle: { width: 3 },
+      // stack: 'Total',
+      smooth: true,
+      label: {
+        show: true,
+        formatter: '{c}', // 显示节点的值
+        borderWidth: 0,
+        color: '#FAF347',
+      },
+
+      data: [100, 200, 200],
+      areaStyle: {
+        color: {
+          type: 'linear',
+          x: 0,
+          y: 0,
+          x2: 0,
+          y2: 1,
+          colorStops: [
+            {
+              offset: 0,
+              color: 'rgba(250, 178, 71, 0.2)', // 起始颜色
+            },
+            {
+              offset: 1,
+              color: 'rgba(238, 159, 42, 0.05)', // 结束颜色
+            },
+          ],
+        },
+      },
+    },
+    {
+      name: '贷款5年',
+      type: 'line',
+      color: '#30B4FF',
+      lineStyle: { width: 3 },
+      seriesLayoutBy: 'row',
+      emphasis: { focus: 'series' },
+      stack: 'Total',
+      smooth: true,
+      data: [100, 200, 200],
+      label: {
+        show: true,
+        formatter: '{c}', // 显示节点的值
+        borderWidth: 0,
+        color: '#30B4FF',
+      },
+      areaStyle: {
+        color: {
+          type: 'linear',
+          x: 0,
+          y: 0,
+          x2: 0,
+          y2: 1,
+          colorStops: [
+            {
+              offset: 0,
+              color: 'rgba(14, 156, 255, 0.2)', // 起始颜色
+            },
+            {
+              offset: 1,
+              color: 'rgba(8, 94, 153, 0.05)', // 结束颜色
+            },
+          ],
+        },
+      },
+    },
+  ],
+});
+// 人民币汇率
+const rmbOption = ref({
+  tooltip: {
+    trigger: 'item',
+  },
+  legend: {
+    top: '0',
+    right: '0%',
+    itemHeight: 5,
+    textStyle: {
+      color: '#ccccea',
+    },
+    data: [
+      {
+        name: '贷款1年',
+        icon: 'rect',
+        itemStyle: {
+          color: '#FAF347',
+        },
+      },
+
+      {
+        name: '贷款5年',
+        icon: 'rect',
+        itemStyle: {
+          color: '#30B4FF',
+        },
+      },
+    ],
+  },
+  grid: {
+    left: '0',
+    right: '15',
+    bottom: '30',
+    containLabel: true,
+  },
+
+  xAxis: {
+    name: '日期',
+    type: 'category',
+    boundaryGap: false,
+    data: ['1', '1', '1'],
+  },
+  yAxis: {
+    name: '利率',
+    type: 'value',
+    nameTextStyle: {
+      color: '#ccccea',
+    },
+    splitLine: {
+      lineStyle: {
+        type: 'dashed', //设置网格线类型 dotted：虚线   solid:实线
+      },
+      show: true,
+    },
+  },
+  series: [
+    {
+      name: '贷款1年',
+      type: 'line',
+      color: '#FAF347',
+      lineStyle: { width: 3 },
+      smooth: true,
+      label: {
+        show: true,
+        formatter: '{c}', // 显示节点的值
+        borderWidth: 0,
+        color: '#FAF347',
+      },
+      data: [100, 200, 1],
+      areaStyle: {
+        color: {
+          type: 'linear',
+          x: 0,
+          y: 0,
+          x2: 0,
+          y2: 1,
+          colorStops: [
+            {
+              offset: 0,
+              color: 'rgba(250, 178, 71, 0.2)', // 起始颜色
+            },
+            {
+              offset: 1,
+              color: 'rgba(238, 159, 42, 0.05)', // 结束颜色
+            },
+          ],
+        },
+      },
+    },
+    {
+      name: '贷款5年',
+      type: 'line',
+      color: '#30B4FF',
+      lineStyle: { width: 3 },
+      stack: 'Total',
+      smooth: true,
+      data: [100, 200, 1],
+      label: {
+        show: true,
+        formatter: '{c}', // 显示节点的值
+        borderWidth: 0,
+        color: '#30B4FF',
+      },
+      areaStyle: {
+        color: {
+          type: 'linear',
+          x: 0,
+          y: 0,
+          x2: 0,
+          y2: 1,
+          colorStops: [
+            {
+              offset: 0,
+              color: 'rgba(14, 156, 255, 0.2)', // 起始颜色
+            },
+            {
+              offset: 1,
+              color: 'rgba(8, 94, 153, 0.05)', // 结束颜色
+            },
+          ],
+        },
+      },
+    },
+  ],
+});
 </script>
 <style lang="less" scoped>
 .screenBac {
@@ -96,18 +383,46 @@ getRmbInfoFn();
     height: calc(100% - 200px);
     padding: 40px;
     overflow: auto;
+
     .two-box {
       display: flex;
+      .mian-box {
+        padding: 15px;
+        height: 336px;
+        .two-chart {
+          height: 100%;
+        }
+      }
     }
     .three-box {
       display: flex;
       justify-content: space-between;
       margin-top: 35px;
       .three-left {
+        height: 100%;
         width: calc(50% - 15px);
+        .mian-box {
+          padding: 15px;
+          height: 336px;
+          .titleToday {
+            padding: 4px;
+            background: rgba(5, 62, 107, 1);
+            color: rgba(234, 234, 234, 1);
+            font-family: AlibabaPuHuiTi2.0-65Medium;
+            font-size: 14px;
+            border-radius: 4px;
+          }
+          .three-chart {
+            height: 308px;
+          }
+        }
       }
       .three-right {
         width: calc(50% - 15px);
+        .three-right-box {
+          padding: 24px;
+          height: 318px;
+        }
       }
     }
     .four-box {
