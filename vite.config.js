@@ -20,10 +20,10 @@ export default defineConfig({
   },
   server: {
     host: '0.0.0.0',
-    port: 8000,
+    // port: 8000,
     proxy: {
       '/api': {
-        target: env.VITE_API_URL,
+        target: 'http://10.205.0.69:9080',
         changeOrigin: true,
         ws: true,
         rewrite: (path) => path.replace(/^\/api/, ''),

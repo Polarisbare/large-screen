@@ -2,7 +2,7 @@
  * @Author: Lv Jingxin lv510987@163.com
  * @Date: 2024-04-17 15:25:53
  * @LastEditors: Lv Jingxin lv510987@163.com
- * @LastEditTime: 2024-04-18 10:51:04
+ * @LastEditTime: 2024-04-18 11:41:17
  * @FilePath: /large-screen/src/views/home.vue
  * @Description: 
 -->
@@ -50,6 +50,14 @@
 // components
 import VScaleScreen from 'v-scale-screen';
 import ChartItem from '@/components/ChartItem.vue';
+// api
+import { getRmbInfo } from '@/api/home-page';
+
+const getRmbInfoFn = async () => {
+  const res = await getRmbInfo();
+  console.log('============>res', res);
+};
+getRmbInfoFn();
 </script>
 <style lang="less" scoped>
 .screenBac {

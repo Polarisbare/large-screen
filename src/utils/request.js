@@ -2,7 +2,7 @@
  * @Author: Lv Jingxin lv510987@163.com
  * @Date: 2024-04-17 14:16:33
  * @LastEditors: Lv Jingxin lv510987@163.com
- * @LastEditTime: 2024-04-18 11:15:31
+ * @LastEditTime: 2024-04-18 11:47:21
  * @FilePath: /large-screen/src/utils/request.js
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -10,7 +10,8 @@ import axios from 'axios';
 
 // 创建一个axios实例
 const instance = axios.create({
-  baseURL: import.meta.env.VITE_API_PREFIX,
+  // baseURL: 'http://10.205.0.69:9080',
+  // baseURL: '/api',
   timeout: 5000,
   headers: { 'Content-Type': 'application/json;charset=UTF-8' },
 });
