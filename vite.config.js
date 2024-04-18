@@ -14,7 +14,7 @@ export default defineConfig({
     preprocessorOptions: {
       less: {
         javascriptEnabled: true,
-        plugins: [new DynamicAntdLess()],
+        // plugins: [new DynamicAntdLess()],
       },
     },
   },

@@ -2,7 +2,7 @@
  * @Author: Lv Jingxin lv510987@163.com
  * @Date: 2024-04-17 15:25:53
  * @LastEditors: Lv Jingxin lv510987@163.com
- * @LastEditTime: 2024-04-18 09:21:57
+ * @LastEditTime: 2024-04-18 10:51:04
  * @FilePath: /large-screen/src/views/home.vue
  * @Description: 
 -->
@@ -18,29 +18,38 @@
       <div class="main">
         <!-- 第二部分 -->
         <div class="two-box">
-          <div class="left-two">
-            <!-- 左侧头部 -->
-            <div class="two-head">
-              <div class="two-head-left">
-                <div class="son">
-                  <img src="@/assets/star.svg" alt="" />
-                  <span class="title">贷款市场报价利率(LPR)</span>
-                </div>
-              </div>
-              <div class="two-head-right"></div>
-            </div>
-            <!-- 左侧图表 -->
-            <div class="two-main">11</div>
+          <div style="width: 1216px">
+            <ChartItem title="贷款市场报价利率(LPR)" :type="0"></ChartItem>
           </div>
-          <div class="right-two"></div>
+          <div style="width: calc(100% - 1216px); margin-left: 30px">
+            <ChartItem title="中国国债收益率曲线" :type="1" />
+          </div>
         </div>
-        <div></div>
+        <!-- 第三部分 -->
+        <div class="three-box">
+          <div class="three-left">
+            <ChartItem title="人民币汇率" :type="2" />
+          </div>
+          <div class="three-right">
+            <ChartItem title="行业分析报告" :type="2" more />
+          </div>
+        </div>
+        <!-- 第四部分 -->
+        <div class="four-box">
+          <ChartItem title="上市公司股价" :type="3">
+            <template #box>
+              <div class="mian-box">1</div>
+            </template>
+          </ChartItem>
+        </div>
       </div>
     </div>
   </v-scale-screen>
 </template>
 <script setup>
+// components
 import VScaleScreen from 'v-scale-screen';
+import ChartItem from '@/components/ChartItem.vue';
 </script>
 <style lang="less" scoped>
 .screenBac {
@@ -53,9 +62,9 @@ import VScaleScreen from 'v-scale-screen';
   ) !important;
 }
 .home {
-  height: 100vh;
+  height: 100%;
   width: 100%;
-  // padding-top: 30px;
+  overflow: hidden;
   .one-box {
     height: 112px;
     background: url('@/assets/top.svg');
@@ -76,50 +85,27 @@ import VScaleScreen from 'v-scale-screen';
     }
   }
   .main {
+    height: calc(100% - 200px);
     padding: 40px;
+    overflow: auto;
     .two-box {
-      .left-two {
-        width: 1216px;
-        .two-head {
-          width: 100%;
-          display: flex;
-          .two-head-left {
-            width: 363px;
-            height: 32px;
-            background: url('@/assets/left.svg');
-            background-size: 100% 100%;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-            padding-left: 16px;
-            .son {
-              bottom: 10px;
-              position: relative;
-              .title {
-                color: rgba(255, 255, 255, 1);
-                font-family: AlibabaPuHuiTi2.0-95ExtraBold;
-                font-size: 24px;
-                margin-left: 16px;
-              }
-            }
-          }
-          .two-head-right {
-            position: relative;
-            bottom: -8px;
-            left: -6px;
-            width: calc(100% - 363px);
-            background: url('@/assets/right.svg');
-            background-repeat: no-repeat;
-            background-size: 100% 100%;
-            height: 20px;
-          }
-        }
-        .two-main {
-          width: 100%;
-          height: 336px;
-          margin-top: 4px;
-          background: url('@/assets/main.svg') no-repeat;
-          background-size: cover;
-        }
+      display: flex;
+    }
+    .three-box {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 35px;
+      .three-left {
+        width: calc(50% - 15px);
+      }
+      .three-right {
+        width: calc(50% - 15px);
+      }
+    }
+    .four-box {
+      margin-top: 35px;
+      .mian-box {
+        height: 780px;
       }
     }
   }
