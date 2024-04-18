@@ -2,17 +2,17 @@
  * @Author: Lv Jingxin lv510987@163.com
  * @Date: 2024-04-17 14:16:33
  * @LastEditors: Lv Jingxin lv510987@163.com
- * @LastEditTime: 2024-04-17 14:35:47
+ * @LastEditTime: 2024-04-18 11:15:31
  * @FilePath: /large-screen/src/utils/request.js
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
-import axios from "axios";
+import axios from 'axios';
 
 // 创建一个axios实例
 const instance = axios.create({
-  baseURL: API_BASE_PREFIX,
+  baseURL: import.meta.env.VITE_API_PREFIX,
   timeout: 5000,
-  headers: { "Content-Type": "application/json;charset=UTF-8" },
+  headers: { 'Content-Type': 'application/json;charset=UTF-8' },
 });
 // 请求拦截
 instance.interceptors.request.use(
@@ -23,7 +23,7 @@ instance.interceptors.request.use(
   (error) => {
     // 对请求错误做些什么
     return Promise.reject(error);
-  }
+  },
 );
 
 // 响应拦截
@@ -54,17 +54,17 @@ instance.interceptors.response.use(
         break;
     }
     return Promise.reject(error);
-  }
+  },
 );
-export function request(method = "GET", url = "", params = {}) {
+export function request(method = 'GET', url = '', params = {}) {
   return new Promise((resolve, reject) => {
     let promise;
-    if (method.toUpperCase() === "GET") {
+    if (method.toUpperCase() === 'GET') {
       promise = instance({
         url,
         params,
       });
-    } else if (method.toUpperCase() === "POST") {
+    } else if (method.toUpperCase() === 'POST') {
       promise = instance({
         method,
         url,
