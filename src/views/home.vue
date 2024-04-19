@@ -2,7 +2,7 @@
  * @Author: Lv Jingxin lv510987@163.com
  * @Date: 2024-04-17 15:25:53
  * @LastEditors: Lv Jingxin lv510987@163.com
- * @LastEditTime: 2024-04-18 17:15:45
+ * @LastEditTime: 2024-04-19 10:31:12
  * @FilePath: /large-screen/src/views/home.vue
  * @Description: 
 -->
@@ -31,7 +31,7 @@
             <ChartItem title="中国国债收益率曲线" :type="1">
               <template #box>
                 <div class="mian-box">
-                  <CusEchart :options="loanOption" class="two-chart" />
+                  <CusEchart :options="chinaOption" class="two-chart" />
                 </div>
               </template>
             </ChartItem>
@@ -55,7 +55,18 @@
           <div class="three-right">
             <ChartItem title="行业分析报告" :type="2" more>
               <template #box>
-                <div class="three-right-box"></div>
+                <div class="three-right-box">
+                  <div
+                    class="report-item"
+                    v-for="(item, index) in reportList"
+                    :key="item.id"
+                    :style="{ background: computeBackgroundColor(index) }"
+                  >
+                    <p class="titles">
+                      {{ item.fileName }}
+                    </p>
+                  </div>
+                </div>
               </template>
             </ChartItem>
           </div>
@@ -80,13 +91,33 @@ import VScaleScreen from 'v-scale-screen';
 import ChartItem from '@/components/ChartItem.vue';
 import CusEchart from '@/components/Charts/index.vue';
 // api
-import { getRmbInfo } from '@/api/home-page';
+import { getRmbInfo, getReport } from '@/api/home-page';
 import { ref } from 'vue';
 const getRmbInfoFn = async () => {
   const res = await getRmbInfo();
   console.log('============>res', res);
 };
 getRmbInfoFn();
+// 报告列表
+const reportList = ref([]);
+const getReportFn = async () => {
+  const res = await getReport({
+    modelName: 'base_board_infoModel',
+    topicConditionGroupMapping: {
+      base_user_link_role: [],
+    },
+    dataMap: {},
+    parentModelName: '',
+  });
+  reportList.value = res.data.slice(0, 6);
+};
+// 背景色
+const computeBackgroundColor = (index) => {
+  return index % 2 === 0
+    ? 'linear-gradient(90deg, rgba(36, 188, 177, 0.2) 0%, rgba(53, 157, 255, 0.2) 100%)'
+    : 'transparent';
+};
+getReportFn();
 // 贷款图表
 const loanOption = ref({
   tooltip: {
@@ -128,7 +159,10 @@ const loanOption = ref({
     name: '日期',
     type: 'category',
     boundaryGap: false,
-    data: ['1月 ', '2月', '3月'],
+    data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+    axisLabel: {
+      color: 'rgba(204, 204, 234, 1)', // 设置 X 轴文字颜色为灰色
+    },
   },
   yAxis: {
     name: '利率',
@@ -136,9 +170,13 @@ const loanOption = ref({
     nameTextStyle: {
       color: '#ccccea',
     },
+    axisLabel: {
+      color: 'rgba(204, 204, 234, 1)', // 设置 X 轴文字颜色为灰色
+    },
     splitLine: {
       lineStyle: {
         type: 'dashed', //设置网格线类型 dotted：虚线   solid:实线
+        color: '#999',
       },
       show: true,
     },
@@ -148,10 +186,7 @@ const loanOption = ref({
       name: '贷款1年',
       type: 'line',
       color: '#FAF347',
-      // seriesLayoutBy: 'row',
-      // emphasis: { focus: 'series' },
       lineStyle: { width: 3 },
-      // stack: 'Total',
       smooth: true,
       label: {
         show: true,
@@ -159,8 +194,8 @@ const loanOption = ref({
         borderWidth: 0,
         color: '#FAF347',
       },
-
-      data: [100, 200, 200],
+      symbolSize: 10,
+      data: [120, 132, 101, 134, 290, 230, 210],
       areaStyle: {
         color: {
           type: 'linear',
@@ -186,11 +221,87 @@ const loanOption = ref({
       type: 'line',
       color: '#30B4FF',
       lineStyle: { width: 3 },
-      seriesLayoutBy: 'row',
-      emphasis: { focus: 'series' },
-      stack: 'Total',
       smooth: true,
-      data: [100, 200, 200],
+      data: [220, 182, 191, 234, 290, 330, 310],
+      stack: 'Total',
+      symbolSize: 10,
+      label: {
+        show: true,
+        formatter: '{c}', // 显示节点的值
+        borderWidth: 0,
+        color: '#30B4FF',
+      },
+      areaStyle: {
+        color: {
+          type: 'linear',
+          x: 0,
+          y: 0,
+          x2: 0,
+          y2: 1,
+          colorStops: [
+            {
+              offset: 0,
+              color: 'rgba(14, 156, 255, 0.2)', // 起始颜色
+            },
+            {
+              offset: 1,
+              color: 'rgba(8, 94, 153, 0.05)', // 结束颜色
+            },
+          ],
+        },
+      },
+    },
+  ],
+});
+// 中国国债收益率曲线
+const chinaOption = ref({
+  tooltip: {
+    trigger: 'item',
+  },
+
+  grid: {
+    left: '0',
+    right: '15',
+    bottom: '0',
+    containLabel: true,
+  },
+
+  xAxis: {
+    name: '日期',
+    type: 'category',
+    boundaryGap: false,
+    data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+    axisLabel: {
+      color: 'rgba(204, 204, 234, 1)', // 设置 X 轴文字颜色为灰色
+    },
+  },
+  yAxis: {
+    name: '利率',
+    type: 'value',
+    nameTextStyle: {
+      color: '#ccccea',
+    },
+    axisLabel: {
+      color: 'rgba(204, 204, 234, 1)', // 设置 X 轴文字颜色为灰色
+    },
+    splitLine: {
+      lineStyle: {
+        type: 'dashed', //设置网格线类型 dotted：虚线   solid:实线、
+        color: '#999',
+      },
+      show: true,
+    },
+  },
+  series: [
+    {
+      name: '贷款5年',
+      type: 'line',
+      color: 'rgba(25, 232, 192, 1)',
+      lineStyle: { width: 3 },
+      smooth: true,
+      data: [220, 182, 191, 234, 290, 330, 310],
+      stack: 'Total',
+      symbolSize: 10,
       label: {
         show: true,
         formatter: '{c}', // 显示节点的值
@@ -261,6 +372,9 @@ const rmbOption = ref({
     type: 'category',
     boundaryGap: false,
     data: ['1', '1', '1'],
+    axisLabel: {
+      color: 'rgba(204, 204, 234, 1)', // 设置 X 轴文字颜色为灰色
+    },
   },
   yAxis: {
     name: '利率',
@@ -268,9 +382,13 @@ const rmbOption = ref({
     nameTextStyle: {
       color: '#ccccea',
     },
+    axisLabel: {
+      color: 'rgba(204, 204, 234, 1)', // 设置 X 轴文字颜色为灰色
+    },
     splitLine: {
       lineStyle: {
         type: 'dashed', //设置网格线类型 dotted：虚线   solid:实线
+        color: '#999',
       },
       show: true,
     },
@@ -420,8 +538,26 @@ const rmbOption = ref({
       .three-right {
         width: calc(50% - 15px);
         .three-right-box {
-          padding: 24px;
-          height: 318px;
+          padding: 20px;
+          height: 326px;
+          display: flex;
+          align-items: center;
+          flex-direction: column;
+          .report-item {
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+            height: 16.1%;
+            width: 820px;
+            color: rgba(255, 255, 255, 1);
+            font-size: 18px;
+            padding: 0 12px 0;
+            .titles {
+              overflow: hidden;
+              white-space: nowrap;
+              text-overflow: ellipsis;
+            }
+          }
         }
       }
     }
