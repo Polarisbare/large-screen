@@ -2,7 +2,7 @@
  * @Author: Lv Jingxin lv510987@163.com
  * @Date: 2024-04-17 15:25:53
  * @LastEditors: Lv Jingxin lv510987@163.com
- * @LastEditTime: 2024-04-19 11:19:28
+ * @LastEditTime: 2024-04-19 11:28:26
  * @FilePath: /large-screen/src/views/home.vue
  * @Description: 
 -->
@@ -92,7 +92,7 @@ import VScaleScreen from 'v-scale-screen';
 import ChartItem from '@/components/ChartItem.vue';
 import CusEchart from '@/components/Charts/index.vue';
 // api
-import { getRmbInfo, getReport } from '@/api/home-page';
+import { getRmbInfo, getReport, getLoan } from '@/api/home-page';
 import { ref } from 'vue';
 const getRmbInfoFn = async () => {
   const res = await getRmbInfo();
@@ -523,6 +523,12 @@ const rmbOption = ref({
     },
   ],
 });
+const loanList = ref([]);
+const getLoanFn = async () => {
+  const res = await getLoan({});
+  console.log('============>贷款市场报价', res);
+};
+getLoanFn();
 </script>
 <style lang="less" scoped>
 .screenBac {
