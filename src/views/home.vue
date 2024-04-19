@@ -2,7 +2,7 @@
  * @Author: Lv Jingxin lv510987@163.com
  * @Date: 2024-04-17 15:25:53
  * @LastEditors: Lv Jingxin lv510987@163.com
- * @LastEditTime: 2024-04-19 10:45:14
+ * @LastEditTime: 2024-04-19 11:19:28
  * @FilePath: /large-screen/src/views/home.vue
  * @Description: 
 -->
@@ -30,8 +30,9 @@
           <div style="width: calc(100% - 1216px); margin-left: 30px">
             <ChartItem title="中国国债收益率曲线" :type="1">
               <template #box>
-                <div class="mian-box">
-                  <CusEchart :options="chinaOption" class="two-chart" />
+                <div class="mian-boxs">
+                  <div>日期</div>
+                  <CusEchart :options="chinaOption" class="two-chart" style="height: calc(100% - 20px)" />
                 </div>
               </template>
             </ChartItem>
@@ -568,6 +569,13 @@ const rmbOption = ref({
         height: 336px;
         .two-chart {
           height: 100%;
+        }
+      }
+      .mian-boxs {
+        padding: 15px;
+        height: 336px;
+        .two-chart {
+          height: calc(100% - 40px);
         }
       }
     }
