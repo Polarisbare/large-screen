@@ -2,7 +2,7 @@
  * @Author: Lv Jingxin lv510987@163.com
  * @Date: 2024-04-17 15:25:53
  * @LastEditors: Lv Jingxin lv510987@163.com
- * @LastEditTime: 2024-04-19 10:31:12
+ * @LastEditTime: 2024-04-19 10:45:14
  * @FilePath: /large-screen/src/views/home.vue
  * @Description: 
 -->
@@ -318,11 +318,11 @@ const chinaOption = ref({
           colorStops: [
             {
               offset: 0,
-              color: 'rgba(14, 156, 255, 0.2)', // 起始颜色
+              color: 'rgba(25, 232, 192, 0.2)', // 起始颜色
             },
             {
               offset: 1,
-              color: 'rgba(8, 94, 153, 0.05)', // 结束颜色
+              color: ' rgba(11, 180, 147, 0.05)', // 结束颜色
             },
           ],
         },
@@ -344,18 +344,32 @@ const rmbOption = ref({
     },
     data: [
       {
-        name: '贷款1年',
+        name: '美元',
         icon: 'rect',
         itemStyle: {
-          color: '#FAF347',
+          color: 'rgba(255, 103, 55, 1)',
         },
       },
 
       {
-        name: '贷款5年',
+        name: '欧元',
         icon: 'rect',
         itemStyle: {
-          color: '#30B4FF',
+          color: 'rgba(250, 243, 71, 1)',
+        },
+      },
+      {
+        name: '澳元',
+        icon: 'rect',
+        itemStyle: {
+          color: 'rgba(25, 232, 192, 1)',
+        },
+      },
+      {
+        name: '港币',
+        icon: 'rect',
+        itemStyle: {
+          color: 'rgba(78, 191, 255, 1)',
         },
       },
     ],
@@ -395,18 +409,41 @@ const rmbOption = ref({
   },
   series: [
     {
-      name: '贷款1年',
+      name: '美元',
       type: 'line',
-      color: '#FAF347',
+      color: 'rgba(255, 103, 55, 1)',
       lineStyle: { width: 3 },
       smooth: true,
-      label: {
-        show: true,
-        formatter: '{c}', // 显示节点的值
-        borderWidth: 0,
-        color: '#FAF347',
-      },
+      symbolSize: 0,
       data: [100, 200, 1],
+      areaStyle: {
+        color: {
+          type: 'linear',
+          x: 0,
+          y: 0,
+          x2: 0,
+          y2: 1,
+          colorStops: [
+            {
+              offset: 0,
+              color: 'rgba(255, 103, 55, 0.1)', // 起始颜色
+            },
+            {
+              offset: 1,
+              color: 'rgba(153, 62, 33, 0.05)', // 结束颜色
+            },
+          ],
+        },
+      },
+    },
+    {
+      name: '欧元',
+      type: 'line',
+      color: 'rgba(250, 243, 71, 1)',
+      lineStyle: { width: 3 },
+      smooth: true,
+      symbolSize: 0,
+      data: [2, 150, 300],
       areaStyle: {
         color: {
           type: 'linear',
@@ -428,19 +465,13 @@ const rmbOption = ref({
       },
     },
     {
-      name: '贷款5年',
+      name: '澳元',
       type: 'line',
-      color: '#30B4FF',
+      color: 'rgba(25, 232, 192, 1)',
       lineStyle: { width: 3 },
-      stack: 'Total',
       smooth: true,
-      data: [100, 200, 1],
-      label: {
-        show: true,
-        formatter: '{c}', // 显示节点的值
-        borderWidth: 0,
-        color: '#30B4FF',
-      },
+      symbolSize: 0,
+      data: [50, 100, 0],
       areaStyle: {
         color: {
           type: 'linear',
@@ -451,11 +482,39 @@ const rmbOption = ref({
           colorStops: [
             {
               offset: 0,
-              color: 'rgba(14, 156, 255, 0.2)', // 起始颜色
+              color: 'rgba(155, 245, 237, 0.1)', // 起始颜色
             },
             {
               offset: 1,
-              color: 'rgba(8, 94, 153, 0.05)', // 结束颜色
+              color: 'rgba(90, 143, 138, 0.05)', // 结束颜色
+            },
+          ],
+        },
+      },
+    },
+    {
+      name: '港币',
+      type: 'line',
+      color: 'rgba(78, 191, 255, 1)',
+      lineStyle: { width: 3 },
+      smooth: true,
+      symbolSize: 0,
+      data: [50, 100, 0],
+      areaStyle: {
+        color: {
+          type: 'linear',
+          x: 0,
+          y: 0,
+          x2: 0,
+          y2: 1,
+          colorStops: [
+            {
+              offset: 0,
+              color: 'rgba(2, 164, 255, 0.1)', // 起始颜色
+            },
+            {
+              offset: 1,
+              color: 'rgba(1, 98, 153, 0.05)', // 结束颜色
             },
           ],
         },
