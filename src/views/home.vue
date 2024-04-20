@@ -2,7 +2,7 @@
  * @Author: Lv Jingxin lv510987@163.com
  * @Date: 2024-04-17 15:25:53
  * @LastEditors: Lv Jingxin lv510987@163.com
- * @LastEditTime: 2024-04-19 11:28:26
+ * @LastEditTime: 2024-04-20 14:59:37
  * @FilePath: /large-screen/src/views/home.vue
  * @Description: 
 -->
@@ -78,6 +78,9 @@
             <template #box>
               <div class="mian-box">
                 <a href="http://192.168.252.232:8015/pdffile/11111.pdf">hahahahahahaha</a>
+                <a-space direction="vertical" :size="12">
+                  <a-date-picker v-model:value="value1" />
+                </a-space>
               </div>
             </template>
           </ChartItem>
@@ -94,6 +97,7 @@ import CusEchart from '@/components/Charts/index.vue';
 // api
 import { getRmbInfo, getReport, getLoan } from '@/api/home-page';
 import { ref } from 'vue';
+const value1 = ref();
 const getRmbInfoFn = async () => {
   const res = await getRmbInfo();
   console.log('============>res', res);
@@ -531,6 +535,13 @@ const getLoanFn = async () => {
 getLoanFn();
 </script>
 <style lang="less" scoped>
+:deep(.ant-space) {
+  width: 128px;
+  border-radius: 8px 0px 8px 0px !important;
+  .ant-picker {
+    background: linear-gradient(90deg, rgba(32, 209, 187, 0.6) 0%, rgba(11, 97, 151, 0.6) 100%);
+  }
+}
 .screenBac {
   background: linear-gradient(
     269.26deg,
@@ -573,6 +584,9 @@ getLoanFn();
       .mian-box {
         padding: 15px;
         height: 336px;
+        // .ant-picker {
+        //   background-color: red;
+        // }
         .two-chart {
           height: 100%;
         }
